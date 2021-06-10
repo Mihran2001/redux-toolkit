@@ -1,19 +1,21 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "./features/counter/counterSlice";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { IinitialState } from './app/store';
 
-function App() {
-  const { value } = useSelector((state) => state.counter);
+export default function App() {
+  const count = useSelector((state: IinitialState) => state.count);
   const dispatch = useDispatch();
   return (
-    <div className="App">
-      <button onClick={() => dispatch(decrement())}> Decrement</button>
-      {/* <h1> {value} </h1> */}
-      <button onClick={() => dispatch(increment())}> Increment </button>
+    <div>
+      <button onClick={() => dispatch({ type: 'addInput' })}>
+        {' '}
+        Increment{' '}
+      </button>
+      <h1> {count} </h1>
+      <button onClick={() => dispatch({ type: 'decreaseInput' })}>
+        {' '}
+        Decrement{' '}
+      </button>
     </div>
   );
 }
-
-export default App;

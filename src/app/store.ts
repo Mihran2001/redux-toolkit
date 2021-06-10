@@ -1,14 +1,31 @@
-import { configureStore } from "@reduxjs/toolkit";
-// ...
-import counterReducer from "../features/counter/counterSlice";
+import { count } from 'console';
+import { createStore } from 'redux';
 
-export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
-});
+export interface IinitialState {
+  count: number;
+}
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch;
+interface Iaction {
+  type: string;
+}
+
+const initialState: IinitialState = {
+  count: 0,
+};
+
+function reducer(state: IinitialState, action: Iaction): IinitialState {
+  if (action.type === 'addCount') {
+    return {
+      //   ...state,
+      count: ++state.count,
+    };
+  } else if (action.type === 'decreaseInput') {
+    return {
+      //   ...state,
+      count: --state.count,
+    };
+  }
+  return state;
+}
+
+export const store = createStore(reducer, initialState);
